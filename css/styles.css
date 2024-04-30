@@ -21,16 +21,35 @@ html {
     box-sizing: inherit;
 }
 
-html, body {
+html, body, p {
+    position: absolute;
     height: 100%;
 }
 body {
-    background: rgba(202, 214, 252, 0.9); 
+    
+    /* background: rgba(202, 214, 252, 0.9);  */
     margin: 0;
     font-family: 'georgia';
     font-size: 1.5rem;
     line-height: 1.4;
 }
+
+
+canvas {
+position: fixed;
+top: 0;
+left: 0;
+}     
+
+
+#scene-container {
+    /* background-color: black; */
+    width: 80vw;
+    height: 800px;
+    margin: 0 auto;
+}
+
+
 h1, h2, h3 {
     font-family: 'Isle Body PERSONAL USE';
     font-weight: 400;
@@ -49,21 +68,21 @@ h3 {
 
 /* links */
 a {
-    color: #3c8453;
+    color: #3c845300;
 }
 a:hover {
-    color: #bcaa96;
+    color: #bcaa9600;
     text-decoration: none;
 }
 footer a {
-    color: #bcaa96;
+    color: #bcaa9600;
 }
 footer a:hover {
-    color: #3c8453;
+    color: #3c845300;
 }
 .btn {
-    background: #3c8453;
-    color: #f6f6f6;
+    background: #3c845300;
+    color: #f6f6f600;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -114,7 +133,7 @@ footer a:hover {
     content: "";
     display: block;
     height: 375px; */
-}
+/*}*/
 .resume-section {
     margin-bottom: 50px;
 }
@@ -216,7 +235,7 @@ footer a:hover {
 ------------------------------------*/
 footer {
     background: #222;
-    color: #d3d4d6;
+    color: #d3d4d600;
 }
 .socials {
     list-style-type: none;

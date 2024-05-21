@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'https://unpkg.com/three@0.162.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.162.0/examples/jsm/loaders/GLTFLoader.js'; // to load 3d models
 
-let chair
+let chair, mixer
 
 
 const scene = new THREE.Scene();
@@ -77,7 +77,14 @@ chair.position.set(0, 0, 26.4);
 // Modify the scale
 chair.scale.set(0.1, 0.1, 0.1);
 
-})
+    // Set up the animation mixer
+    mixer = new THREE.AnimationMixer(chair);
+    gltf.animations.forEach((clip) => {
+        mixer.clipAction(clip).play();
+    });
+}, undefined, function (error) {
+    console.error(error);
+});
 
 
 function moveCamera() {
@@ -105,6 +112,38 @@ document.body.onscroll = moveCamera
 const spaceTexture = new THREE.TextureLoader().load('Sunset.jpg');
 scene.background = spaceTexture;
 
+const clock = new THREE.Clock();
+
+
+// Function to handle mouse movement
+function handleMouseMove(event) {
+    // Get the vertical position of the mouse
+    var mouseY = event.clientY;
+
+    // Get the height of the viewport
+    var viewportHeight = window.innerHeight;
+
+    // Get the height of the document
+    var documentHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+
+    // Determine whether the mouse is in the upper half, lower half, or center of the viewport
+    if (mouseY < viewportHeight / 2 && window.scrollY > 0) {
+        // If the mouse is in the upper half and not at the top of the document, scroll upwards
+        window.scrollBy(0, -1); // Adjust the scrolling speed as needed
+    } else if (mouseY > viewportHeight / 2 && window.scrollY < (documentHeight - viewportHeight)) {
+        // If the mouse is in the lower half and not at the bottom of the document, scroll downwards
+        window.scrollBy(0, 1); // Adjust the scrolling speed as needed
+    }
+}
+
+// Add event listener for mouse movement
+document.addEventListener('mousemove', handleMouseMove);
+
+
 function animate() {
     requestAnimationFrame( animate );
 
@@ -113,6 +152,11 @@ function animate() {
     // torus.rotation.z += 0.01;
 
     // controls.update();
+
+    if (mixer) {
+        mixer.update(clock.getDelta());
+    }
+
 
     renderer.render( scene, camera );
 }

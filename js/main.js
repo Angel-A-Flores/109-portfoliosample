@@ -109,13 +109,13 @@ document.body.onscroll = moveCamera
 
 // Array(200).fill().forEach(addStar)
 
-const spaceTexture = new THREE.TextureLoader().load('Sunset.jpg');
+const spaceTexture = new THREE.TextureLoader().load('sunset.jpg');
 scene.background = spaceTexture;
 
 const clock = new THREE.Clock();
 
 
-// Function to handle mouse movement
+
 function handleMouseMove(event) {
     // Get the vertical position of the mouse
     var mouseY = event.clientY;
